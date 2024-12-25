@@ -169,3 +169,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+
+
+#repo specific
+src/textualize_examples_from_git/
