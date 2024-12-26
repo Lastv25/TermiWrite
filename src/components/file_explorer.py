@@ -1,6 +1,6 @@
-from textual.containers import Container
+from textual.widgets import DirectoryTree
 
 
-class FileExplorerContainer(Container):
-    def __init__(self):
-        super().__init__()
+class FileExplorerDirTree(DirectoryTree):
+    def __init__(self, folder_path: str) -> None:
+        super().__init__(folder_path)

@@ -1,6 +1,6 @@
 import os
 
-from components import MyMarkdown
+from components import FileExplorerDirTree, MyMarkdown
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header
 
@@ -10,10 +10,11 @@ class TermiWriteApp(App):
 
     def __init__(self, folder_path: str) -> None:
         self.validate_path(folder_path)
+        self._folder_path = folder_path
         super().__init__()
 
     @staticmethod
-    def validate_path(folder_path: str) -> bool:
+    def validate_path(folder_path: str) -> None:
         # expand user home directory
         expanded_path = os.path.expanduser(folder_path)
         # get the absolute path
@@ -21,7 +22,7 @@ class TermiWriteApp(App):
         # check if valid directory and if exist in the system
         if os.path.exists(abs_path):
             if os.path.isdir(abs_path):
-                return True
+                return None
             else:
                 raise ValueError(
                     f"The path passed in input is not a directory: {abs_path}"
@@ -34,7 +35,7 @@ class TermiWriteApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        # yield MyMarkdown()
+        yield FileExplorerDirTree(self._folder_path)
 
     def on_mount(self) -> None:
         # App title in the header
