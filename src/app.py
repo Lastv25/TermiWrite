@@ -6,6 +6,14 @@ from textual.widgets import Footer, Header, Static
 from components import FileExplorerDirTree, MyMarkdown
 
 
+class DebugStatic(Static):
+    def on_mount(self):
+        self.update("Nothing Selected yet")
+
+    def update_content(self, content):
+        self.update(content)
+
+
 class TermiWriteApp(App):
     CSS_PATH = "app.tcss"
     BINDINGS = [("d", "toggle_dark", "Toggle Dark Mode")]
@@ -38,7 +46,12 @@ class TermiWriteApp(App):
         yield Header()
         yield Footer()
         yield FileExplorerDirTree(self._folder_path, id="directory_file_tree")
-        yield Static("TODO", id="body")
+        yield DebugStatic(id="body")
+
+    def on_directory_tree_file_selected(self, event: FileExplorerDirTree.FileSelected):
+        event.stop()
+        target_widget = self.query_one(DebugStatic)
+        target_widget.update_content(content=str(event.path))
 
     def on_mount(self) -> None:
         # App title in the header
