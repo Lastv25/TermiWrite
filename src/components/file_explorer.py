@@ -6,5 +6,5 @@ class FileExplorerDirTree(DirectoryTree):
     ICON_NODE = "▸ "
     ICON_FILE = "⦁ "  # Remove icons in the result
 
-    def __init__(self, folder_path: str) -> None:
-        super().__init__(folder_path)
+    def __init__(self, folder_path: str, id: str = None) -> None:
+        super().__init__(folder_path, id=id)

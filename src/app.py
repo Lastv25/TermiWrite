@@ -1,11 +1,13 @@
 import os
 
-from components import FileExplorerDirTree, MyMarkdown
 from textual.app import App, ComposeResult
-from textual.widgets import Footer, Header
+from textual.widgets import Footer, Header, Static
+
+from components import FileExplorerDirTree, MyMarkdown
 
 
 class TermiWriteApp(App):
+    CSS_PATH = "app.tcss"
     BINDINGS = [("d", "toggle_dark", "Toggle Dark Mode")]
 
     def __init__(self, folder_path: str) -> None:
@@ -35,7 +37,8 @@ class TermiWriteApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        yield FileExplorerDirTree(self._folder_path)
+        yield FileExplorerDirTree(self._folder_path, id="directory_file_tree")
+        yield Static("TODO", id="body")
 
     def on_mount(self) -> None:
         # App title in the header

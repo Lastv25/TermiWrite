@@ -1,0 +1,6 @@
+
+#directory_file_tree {
+	dock: left;
+	width: 20%;
+	height: 100%;
+}
